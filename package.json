@@ -1,18 +1,37 @@
 {
   "name": "nuxt-app",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:ts": "nuxi typecheck",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.4.3",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@nuxt/devtools": "latest",
+    "eslint": "^8.55.0",
+    "lint-staged": "^15.2.0",
     "nuxt": "^3.8.2",
+    "simple-git-hooks": "^2.9.0",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  },
+  "simple-git-hooks": {
+    "commit-msg": "npx --no -- commitlint --edit ${1}",
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
